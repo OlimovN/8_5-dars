@@ -1,11 +1,4 @@
-declare global {
-  interface Window {
-    $crisp: any[];
-    CRISP_WEBSITE_ID: string;
-  }
-}
 import React, { useEffect, useState } from "react";
-
 import data from "./product.json/product.json";
 
 interface Product {
@@ -99,16 +92,6 @@ const Produkt: React.FC = () => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  useEffect(() => {
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a";
-
-    const s = document.createElement("script");
-    s.src = "https://client.crisp.chat/l.js";
-    s.async = true;
-    document.head.appendChild(s);
-  }, []);
-
   return (
     <div className="bg-gray-100 min-h-screen py-8">
       <form className="container mx-auto shadow-lg rounded-lg bg-white p-8">
@@ -177,11 +160,11 @@ const Produkt: React.FC = () => {
               onChange={(e) => setCartby(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="">a-z</option>
-              <option>a-z</option>
-              <option>z-a</option>
-              <option>high</option>
-              <option>low</option>
+              <option value="">Select</option>
+              <option value="a-z">a-z</option>
+              <option value="z-a">z-a</option>
+              <option value="high">High to Low</option>
+              <option value="low">Low to High</option>
             </select>
           </div>
           <div>
@@ -240,28 +223,27 @@ const Produkt: React.FC = () => {
           {malumod.length} Products
         </p>
         <div className="mt-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {malumod &&
-            malumod.map((e) => (
-              <div key={e.id} className="bg-white rounded-lg shadow-md p-4">
-                <div className="relative h-56">
-                  <img
-                    className="w-full h-full object-cover rounded-t-md"
-                    src={e.image}
-                    alt="card-image"
-                  />
-                </div>
-                <div className="p-4">
-                  <h2 className="text-lg font-medium text-gray-800">
-                    {capitalizeFirstLetter(e.title)}
-                  </h2>
-                  <p className="mt-2 text-sm text-gray-600">{e.description}</p>
-                  <p className="mt-4 text-indigo-500">${e.price}</p>
-                  <button className="mt-4 bg-indigo-600 text-white py-2 px-4 rounded-lg w-full hover:bg-indigo-700 transition duration-200">
-                    Read More
-                  </button>
-                </div>
+          {malumod.map((e) => (
+            <div key={e.id} className="bg-white rounded-lg shadow-md p-4">
+              <div className="relative h-56">
+                <img
+                  className="w-full h-full object-cover rounded-t-md"
+                  src={e.image}
+                  alt="card-image"
+                />
               </div>
-            ))}
+              <div className="p-4">
+                <h2 className="text-lg font-medium text-gray-800">
+                  {capitalizeFirstLetter(e.title)}
+                </h2>
+                <p className="mt-2 text-sm text-gray-600">{e.description}</p>
+                <p className="mt-4 text-indigo-500">${e.price}</p>
+                <button className="mt-4 bg-indigo-600 text-white py-2 px-4 rounded-lg w-full hover:bg-indigo-700 transition duration-200">
+                  Read More
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
